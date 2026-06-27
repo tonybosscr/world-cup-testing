@@ -1,0 +1,22 @@
+[
+  {
+    "match_id": "wc2026-001",
+    "home_team": "Brazil",
+    "away_team": "Germany",
+    "kickoff_utc": "2026-06-28T16:00:00+00:00",
+    "home_rating": 86,
+    "away_rating": 84,
+    "home_form": 2,
+    "away_form": 1
+  },
+  {
+    "match_id": "wc2026-002",
+    "home_team": "Argentina",
+    "away_team": "France",
+    "kickoff_utc": "2026-06-29T19:00:00+00:00",
+    "home_rating": 87,
+    "away_rating": 86,
+    "home_form": 3,
+    "away_form": 2
+  }
+]
