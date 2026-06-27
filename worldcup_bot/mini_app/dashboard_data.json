@@ -1,0 +1,3 @@
+{
+  "note": "Use this only for static preview fallback. Production data should come from ../output/dashboard_data.json"
+}
