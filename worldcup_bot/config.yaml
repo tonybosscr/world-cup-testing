@@ -1,0 +1,37 @@
+competition: fifa_world_cup_2026
+team_scope: all
+timezone: Africa/Lagos
+
+data_provider:
+  name: worldcup26_free
+  notes: Free/open default provider for World Cup 2026 fixtures/basic data. Swap later if desired.
+
+schedule:
+  update_every_hours: 4
+  pre_match_alert_hours: 1
+
+form_ingestion:
+  lookback_days: 365
+  max_recent_matches: 8
+
+simulation:
+  runs: 20000
+  confidence_threshold: 0.55
+
+backtest:
+  enabled: true
+  simulation_runs: 4000
+
+model_comparison:
+  simulation_runs: 4000
+  auto_select_best_model: true
+  fallback_model: baseline_main
+  stable_selection:
+    enabled: true
+    min_evaluated_matches: 12
+    rolling_window: 5
+    switch_margin: 1.5
+
+telegram:
+  enabled: true
+  parse_mode: Markdown
