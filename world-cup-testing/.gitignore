@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.env
+.cache/
+worldcup_bot/data/*.json
+worldcup_bot/logs/
