@@ -2,6 +2,7 @@
   "selected_model": "baseline_main",
   "auto_selected": true,
   "selection_mode": "stable",
-  "reason": "Initial default",
-  "generated_at_utc": null
+  "reason": "No model met minimum evaluated match threshold.",
+  "rolling_scores": {},
+  "generated_at_utc": "2026-06-28T15:48:08.599553+00:00"
 }

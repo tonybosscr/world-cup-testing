@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Cup Bot Backtest Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; background:#0b1020; color:#e8eefc; }
+    h1,h2 { margin: 0 0 12px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin: 18px 0 24px; }
+    .card { background:#141b34; border:1px solid #263259; border-radius:16px; padding:16px; }
+    .label { color:#9cb0e0; font-size:13px; margin-bottom:8px; }
+    .value { font-size:28px; font-weight:700; }
+    .sub { color:#8da0cc; font-size:12px; margin-top:6px; }
+    table { width:100%; border-collapse:collapse; background:#141b34; border-radius:16px; overflow:hidden; }
+    th,td { padding:12px; border-bottom:1px solid #263259; text-align:left; font-size:14px; }
+    th { color:#a9bbe8; background:#10172e; }
+    .panel { background:#141b34; border:1px solid #263259; border-radius:16px; padding:16px; margin: 18px 0; }
+    .charts { display:grid; grid-template-columns:1fr; gap:16px; }
+    .muted { color:#97a8d2; }
+    svg { width:100%; height:auto; background:#0f1530; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <h1>🏆 World Cup Prediction Bot Dashboard</h1>
+  <div class="muted">Backtesting, calibration analysis, and long-term performance tracking</div>
+
+  <div class="grid">
+    
+    <div class="card">
+      <div class="label">Tracked runs</div>
+      <div class="value">1</div>
+      <div class="sub">Total historical backtest snapshots</div>
+    </div>
+    
+    
+    <div class="card">
+      <div class="label">Average pick accuracy</div>
+      <div class="value">0.0%</div>
+      <div class="sub">Across saved runs</div>
+    </div>
+    
+    
+    <div class="card">
+      <div class="label">Average Brier score</div>
+      <div class="value">N/A</div>
+      <div class="sub">Lower is better</div>
+    </div>
+    
+    
+    <div class="card">
+      <div class="label">Average log loss</div>
+      <div class="value">N/A</div>
+      <div class="sub">Lower is better</div>
+    </div>
+    
+  </div>
+
+  <div class="grid">
+    
+    <div class="card">
+      <div class="label">Latest evaluated matches</div>
+      <div class="value">0</div>
+      <div class="sub">Completed matches in latest backtest</div>
+    </div>
+    
+    
+    <div class="card">
+      <div class="label">Latest pick accuracy</div>
+      <div class="value">0.0%</div>
+      <div class="sub">Latest snapshot</div>
+    </div>
+    
+    
+    <div class="card">
+      <div class="label">Latest Brier score</div>
+      <div class="value">N/A</div>
+      <div class="sub">Latest snapshot</div>
+    </div>
+    
+    
+    <div class="card">
+      <div class="label">Best model</div>
+      <div class="value">baseline_main</div>
+      <div class="sub">Current comparison winner</div>
+    </div>
+    
+  </div>
+
+  <div class="charts">
+    <div class="panel">
+      <h2>Pick Accuracy Trend</h2>
+      <svg viewBox="0 0 500 100" preserveAspectRatio="none">
+        <polyline fill="none" stroke="#62d0ff" stroke-width="3" points="0.0,95.0"></polyline>
+      </svg>
+    </div>
+    <div class="panel">
+      <h2>Brier Score Trend</h2>
+      <svg viewBox="0 0 500 100" preserveAspectRatio="none">
+        <polyline fill="none" stroke="#7ef29a" stroke-width="3" points=""></polyline>
+      </svg>
+    </div>
+    <div class="panel">
+      <h2>Log Loss Trend</h2>
+      <svg viewBox="0 0 500 100" preserveAspectRatio="none">
+        <polyline fill="none" stroke="#ffb86c" stroke-width="3" points=""></polyline>
+      </svg>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Model Comparison</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Evaluated Matches</th>
+          <th>Pick Accuracy</th>
+          <th>Brier Score</th>
+          <th>Log Loss</th>
+          <th>ECE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>baseline_main</td><td>0</td><td>0.0%</td><td></td><td></td><td>0.0</td></tr>
+<tr><td>elo_only</td><td>0</td><td>0.0%</td><td></td><td></td><td>0.0</td></tr>
+<tr><td>form_weighted</td><td>0</td><td>0.0%</td><td></td><td></td><td>0.0</td></tr>
+<tr><td>goal_rate_focused</td><td>0</td><td>0.0%</td><td></td><td></td><td>0.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>Calibration Table \(Best Model\)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Confidence Bin</th>
+          <th>Count</th>
+          <th>Avg Predicted</th>
+          <th>Actual Frequency</th>
+          <th>Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0.0-0.1</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.1-0.2</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.2-0.3</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.3-0.4</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.4-0.5</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.5-0.6</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.6-0.7</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.7-0.8</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.8-0.9</td><td>0</td><td></td><td></td><td></td></tr>
+<tr><td>0.9-1.0</td><td>0</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>Recent Backtest History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Generated At (UTC)</th>
+          <th>Provider</th>
+          <th>Evaluated Matches</th>
+          <th>Pick Accuracy</th>
+          <th>Brier Score</th>
+          <th>Log Loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2026-06-28T15:48:08.600017+00:00</td><td>worldcup26_free</td><td>0</td><td>0.0%</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

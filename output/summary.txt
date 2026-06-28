@@ -1,0 +1,8 @@
+Generated 0 predictions at 2026-06-28T15:48:08.599651+00:00
+Provider: worldcup26_free
+Timezone: Africa/Lagos
+Recent-results teams: 0
+Selected model: baseline_main
+Selection mode: stable
+Selection reason: No model met minimum evaluated match threshold.
+Best model from comparison: baseline_main
