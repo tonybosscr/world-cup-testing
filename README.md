@@ -2,10 +2,14 @@
 
 This repository is GitHub-ready.
 
-## Important structure
-GitHub workflow files are now correctly placed at repository root:
-- `.github/workflows/predict.yml`
-- `.github/workflows/pages.yml`
+## Telegram command menu
+The bot now registers these commands:
+- `/today` — today’s predictions
+- `/next` — next upcoming match prediction
+- `/dashboard` — open dashboard prompt
+- `/summary` — latest daily summary
+
+These are set automatically during scheduled runs.
 
 ## Main app files
 - `src/`

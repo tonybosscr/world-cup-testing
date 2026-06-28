@@ -6,40 +6,38 @@
   <title>World Cup Predictor</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    :root {
-      --bg: #07111f; --panel: rgba(17,27,48,.88); --panel-2: rgba(25,39,68,.92);
-      --line: rgba(121,157,219,.18); --text: #eef4ff; --muted: #9cb1d8;
-      --gold: #d8b25a; --gold-soft: rgba(216,178,90,.18); --shadow: 0 18px 60px rgba(0,0,0,.35);
-      --radius: 22px;
-    }
-    * { box-sizing: border-box; } body { margin:0; font-family: Inter, Arial, sans-serif; color:var(--text);
-      background: radial-gradient(circle at top left, rgba(24,64,128,.45), transparent 30%), radial-gradient(circle at top right, rgba(216,178,90,.12), transparent 20%), linear-gradient(180deg, #07111f, #09182b 45%, #06101d); min-height:100vh; }
-    .wrap { max-width:1180px; margin:0 auto; padding:22px; } .hero { background: linear-gradient(135deg, rgba(17,27,48,.92), rgba(13,23,42,.82)); border:1px solid var(--line); border-radius:28px; padding:26px; box-shadow:var(--shadow); position:relative; overflow:hidden; }
-    .hero::after { content:''; position:absolute; inset:auto -80px -80px auto; width:240px; height:240px; border-radius:50%; background: radial-gradient(circle, rgba(216,178,90,.22), transparent 65%); }
-    .brand { display:flex; align-items:center; gap:14px; } .badge { width:56px; height:56px; border-radius:18px; display:grid; place-items:center; background: linear-gradient(135deg, rgba(216,178,90,.18), rgba(120,216,255,.1)); border:1px solid rgba(216,178,90,.28); font-size:28px; }
-    h1 { margin:0; font-size:28px; } .sub { color:var(--muted); margin-top:6px; } .hero-grid, .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-top:22px; }
-    .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); backdrop-filter:blur(10px); }
-    .label { color:var(--muted); font-size:13px; margin-bottom:8px; } .value { font-size:30px; font-weight:700; } .small { color:var(--muted); font-size:12px; margin-top:8px; }
-    .section-title { margin:28px 0 14px; font-size:20px; } .btn { appearance:none; border:0; cursor:pointer; background: linear-gradient(135deg, #d8b25a, #f0d48d); color:#16120a; font-weight:700; padding:14px 18px; border-radius:16px; box-shadow:0 10px 24px rgba(216,178,90,.28); }
-    .btn.secondary { background: linear-gradient(135deg, rgba(120,216,255,.16), rgba(120,216,255,.09)); color:var(--text); border:1px solid rgba(120,216,255,.18); box-shadow:none; }
-    .row { display:flex; gap:12px; flex-wrap:wrap; } .match { display:grid; gap:10px; padding:16px; border-radius:18px; background:var(--panel-2); border:1px solid var(--line); }
-    .teams { font-size:18px; font-weight:700; } .meta, .prob { color:var(--muted); font-size:14px; } .pill { display:inline-block; padding:7px 10px; border-radius:999px; background:var(--gold-soft); color:#f4d58d; font-size:12px; font-weight:700; border:1px solid rgba(216,178,90,.22); }
+    :root { --bg:#07111f; --panel:rgba(17,27,48,.88); --panel-2:rgba(25,39,68,.92); --line:rgba(121,157,219,.18); --text:#eef4ff; --muted:#9cb1d8; --gold:#d8b25a; --gold-soft:rgba(216,178,90,.18); --shadow:0 18px 60px rgba(0,0,0,.35); --radius:22px; }
+    * { box-sizing:border-box; } body { margin:0; font-family:Inter, Arial, sans-serif; color:var(--text); background:radial-gradient(circle at top left, rgba(24,64,128,.45), transparent 30%), radial-gradient(circle at top right, rgba(216,178,90,.12), transparent 20%), linear-gradient(180deg, #07111f, #09182b 45%, #06101d); min-height:100vh; position:relative; }
+    body::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:.18; background-image:linear-gradient(rgba(216,178,90,.18), rgba(216,178,90,.18)), linear-gradient(rgba(216,178,90,.18), rgba(216,178,90,.18)), linear-gradient(rgba(216,178,90,.18), rgba(216,178,90,.18)), linear-gradient(rgba(216,178,90,.18), rgba(216,178,90,.18)); background-size:2px 140px, 80px 2px, 2px 140px, 80px 2px; background-position:12% 18%, 12% 18%, 88% 18%, calc(88% - 80px) 18%; background-repeat:no-repeat; }
+    .wrap { max-width:1180px; margin:0 auto; padding:22px; } .ticker { overflow:hidden; border:1px solid var(--line); background:rgba(13,23,42,.88); border-radius:16px; margin-bottom:16px; box-shadow:var(--shadow); } .ticker-track { display:flex; gap:32px; padding:12px 18px; white-space:nowrap; animation:tickerMove 24s linear infinite; } .ticker-item { color:#f4d58d; font-size:13px; font-weight:700; } @keyframes tickerMove { from { transform:translateX(0); } to { transform:translateX(-35%); } }
+    .hero { background:linear-gradient(135deg, rgba(17,27,48,.92), rgba(13,23,42,.82)); border:1px solid var(--line); border-radius:28px; padding:26px; box-shadow:var(--shadow); position:relative; overflow:hidden; } .hero::after { content:''; position:absolute; inset:auto -80px -80px auto; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(216,178,90,.22), transparent 65%); }
+    .brand { display:flex; align-items:center; gap:14px; } .badge { width:56px; height:56px; border-radius:18px; display:grid; place-items:center; background:linear-gradient(135deg, rgba(216,178,90,.18), rgba(120,216,255,.1)); border:1px solid rgba(216,178,90,.28); font-size:28px; }
+    h1 { margin:0; font-size:28px; } .sub { color:var(--muted); margin-top:6px; } .hero-grid, .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-top:22px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); backdrop-filter:blur(10px); } .label { color:var(--muted); font-size:13px; margin-bottom:8px; } .value { font-size:30px; font-weight:700; } .small { color:var(--muted); font-size:12px; margin-top:8px; }
+    .section-title { margin:28px 0 14px; font-size:20px; } .btn { appearance:none; border:0; cursor:pointer; background:linear-gradient(135deg, #d8b25a, #f0d48d); color:#16120a; font-weight:700; padding:14px 18px; border-radius:16px; box-shadow:0 10px 24px rgba(216,178,90,.28); } .btn.secondary { background:linear-gradient(135deg, rgba(120,216,255,.16), rgba(120,216,255,.09)); color:var(--text); border:1px solid rgba(120,216,255,.18); box-shadow:none; }
+    .filter-input { width:100%; max-width:320px; background:rgba(255,255,255,.06); color:var(--text); border:1px solid var(--line); border-radius:14px; padding:12px 14px; outline:none; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; } .match { display:grid; gap:12px; padding:18px; border-radius:20px; background:linear-gradient(180deg, rgba(25,39,68,.96), rgba(17,27,48,.96)); border:1px solid var(--line); }
+    .match-top { display:flex; justify-content:space-between; align-items:center; gap:10px; } .teams-board { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; } .team-side { display:grid; justify-items:center; gap:8px; } .flag { font-size:34px; } .team-name { font-size:16px; font-weight:700; text-align:center; }
+    .vs-block { padding:10px 12px; border-radius:999px; background:rgba(216,178,90,.12); color:#f4d58d; font-weight:800; letter-spacing:1px; } .edge-card { border:1px solid rgba(216,178,90,.28); background:linear-gradient(135deg, rgba(216,178,90,.14), rgba(17,27,48,.92)); } .edge-match { font-size:22px; font-weight:800; margin-bottom:10px; } .edge-pick { color:#f4d58d; font-size:15px; }
+    .highlight { color:#f4d58d; } .meta, .prob { color:var(--muted); font-size:14px; } .pill { display:inline-block; padding:7px 10px; border-radius:999px; background:var(--gold-soft); color:#f4d58d; font-size:12px; font-weight:700; border:1px solid rgba(216,178,90,.22); }
+    .bars-wrap { display:grid; gap:8px; } .bar-row { display:grid; grid-template-columns:88px 1fr 54px; gap:10px; align-items:center; font-size:12px; color:var(--muted); } .bar-track { width:100%; height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; } .bar-fill { height:100%; border-radius:999px; transform-origin:left center; animation:growBar 1s ease forwards; transform:scaleX(0); } .bar-fill.home { background:linear-gradient(90deg, #78d8ff, #4ebeff); } .bar-fill.draw { background:linear-gradient(90deg, #d8b25a, #f0d48d); } .bar-fill.away { background:linear-gradient(90deg, #87f2bb, #4fd892); } @keyframes growBar { to { transform:scaleX(1); } }
     table { width:100%; border-collapse:collapse; overflow:hidden; background:var(--panel); border-radius:18px; border:1px solid var(--line); } th, td { text-align:left; padding:14px 12px; border-bottom:1px solid var(--line); font-size:14px; } th { color:var(--muted); font-weight:600; }
     #upcomingPanel { display:none; margin-top:16px; } .footer { color:var(--muted); font-size:12px; margin:22px 0 6px; text-align:center; }
   </style>
 </head>
 <body>
   <div class="wrap">
+    <div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
     <div class="hero">
-      <div class="brand"><div class="badge">🏆</div><div><h1>World Cup Predictor</h1><div class="sub">GitHub Pages-ready Telegram mini app dashboard</div></div></div>
+      <div class="brand"><div class="badge">🏆</div><div><h1>World Cup Predictor</h1><div class="sub">Premium match board, simulation desk, and today's prediction feed</div></div></div>
+      <div id="bestEdgeWrap" style="margin-top:18px;"></div>
       <div class="hero-grid" id="heroStats"></div>
-      <div class="row" style="margin-top:18px;"><button class="btn" id="showUpcomingBtn">Show current upcoming match prediction</button><button class="btn secondary" id="refreshBtn">Refresh dashboard data</button></div>
+      <div class="row" style="margin-top:18px;"><button class="btn" id="showUpcomingBtn">Show current upcoming match prediction</button><button class="btn secondary" id="todayPredsBtn">Predictions of the day</button><button class="btn secondary" id="refreshBtn">Refresh dashboard data</button><input id="matchFilter" class="filter-input" placeholder="Filter by team, pick, stage, venue..." /></div>
       <div id="upcomingPanel" class="card"></div>
     </div>
     <h2 class="section-title">Today’s Predictions</h2><div class="grid" id="predictionsGrid"></div>
     <h2 class="section-title">Model & Backtest</h2><div class="grid" id="modelStats"></div>
-    <h2 class="section-title">Model Comparison</h2>
-    <div class="card"><table><thead><tr><th>Model</th><th>Accuracy</th><th>Brier</th><th>Log Loss</th><th>ECE</th></tr></thead><tbody id="comparisonBody"></tbody></table></div>
+    <h2 class="section-title">Model Comparison</h2><div class="card"><table><thead><tr><th>Model</th><th>Accuracy</th><th>Brier</th><th>Log Loss</th><th>ECE</th></tr></thead><tbody id="comparisonBody"></tbody></table></div>
     <div class="footer">World Cup Bot GitHub Pages Dashboard</div>
   </div>
   <script src="./app.js"></script>

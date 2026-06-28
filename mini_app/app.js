@@ -1,110 +1,59 @@
-async function loadDashboardData() {
-  const candidates = [
-    '../output/dashboard_data.json',
-    './dashboard_data.json',
-    '/worldcup_bot/output/dashboard_data.json',
-  ];
+const FLAG_MAP = {
+  Argentina: '🇦🇷', Brazil: '🇧🇷', Germany: '🇩🇪', France: '🇫🇷', Spain: '🇪🇸', England: '🏴', Portugal: '🇵🇹', Netherlands: '🇳🇱', Belgium: '🇧🇪', Croatia: '🇭🇷', Uruguay: '🇺🇾', Mexico: '🇲🇽', USA: '🇺🇸', Canada: '🇨🇦', Morocco: '🇲🇦', Japan: '🇯🇵', 'South Korea': '🇰🇷', Senegal: '🇸🇳', Nigeria: '🇳🇬', Ghana: '🇬🇭', Switzerland: '🇨🇭', Denmark: '🇩🇰', Italy: '🇮🇹'
+};
+let DASHBOARD_DATA = null;
 
+async function loadDashboardData() {
+  const candidates = ['../output/dashboard_data.json', './dashboard_data.json', '/world-cup-testing/output/dashboard_data.json'];
   let lastError = null;
   for (const url of candidates) {
     try {
       const res = await fetch(url, { cache: 'no-store' });
       if (res.ok) return await res.json();
-    } catch (err) {
-      lastError = err;
-    }
+    } catch (err) { lastError = err; }
   }
   throw lastError || new Error('Unable to load dashboard data');
 }
-
-function statCard(label, value, small='') {
-  return `<div class="card"><div class="label">${label}</div><div class="value">${value}</div><div class="small">${small}</div></div>`;
+function flagFor(team) { return FLAG_MAP[team] || '🏳️'; }
+function statCard(label, value, small='') { return `<div class="card"><div class="label">${label}</div><div class="value">${value}</div><div class="small">${small}</div></div>`; }
+function bestEdge(preds) { if (!preds.length) return null; return [...preds].sort((a, b) => (b.confidence || 0) - (a.confidence || 0))[0]; }
+function topEdges(preds, limit = 5) { return [...preds].sort((a, b) => (b.confidence || 0) - (a.confidence || 0)).slice(0, limit); }
+function heroEdgeCard(p) {
+  if (!p) return `<div class="card"><div class="label">Best Edge of the Day</div><div class="value">No edge available</div></div>`;
+  return `<div class="card edge-card"><div class="label">Best Edge of the Day</div><div class="edge-match">${flagFor(p.home_team)} ${p.home_team} <span class="vs">vs</span> ${flagFor(p.away_team)} ${p.away_team}</div><div class="edge-pick">Pick: <strong>${p.predicted_outcome}</strong> • Confidence ${(p.confidence * 100).toFixed(1)}%</div><div class="small">Board: ${p.home_team} ${(p.home_win_prob*100).toFixed(1)}% • Draw ${(p.draw_prob*100).toFixed(1)}% • ${p.away_team} ${(p.away_win_prob*100).toFixed(1)}%</div></div>`;
 }
-
+function probabilityBars(p) {
+  const home = (p.home_win_prob * 100).toFixed(1); const draw = (p.draw_prob * 100).toFixed(1); const away = (p.away_win_prob * 100).toFixed(1);
+  return `<div class="bars-wrap"><div class="bar-row"><span>${p.home_team}</span><div class="bar-track"><div class="bar-fill home" style="width:${home}%"></div></div><span>${home}%</span></div><div class="bar-row"><span>Draw</span><div class="bar-track"><div class="bar-fill draw" style="width:${draw}%"></div></div><span>${draw}%</span></div><div class="bar-row"><span>${p.away_team}</span><div class="bar-track"><div class="bar-fill away" style="width:${away}%"></div></div><span>${away}%</span></div></div>`;
+}
 function predictionCard(p) {
   const scorelines = (p.top_scorelines || []).map(s => `${s.score} (${(s.probability*100).toFixed(1)}%)`).join(', ');
-  return `
-    <div class="match">
-      <div class="row" style="justify-content:space-between;align-items:center;">
-        <span class="pill">${p.selected_model || 'baseline_main'}</span>
-        <span class="meta">${p.kickoff_utc || ''}</span>
-      </div>
-      <div class="teams">${p.home_team} vs ${p.away_team}</div>
-      <div class="meta">${p.stage || '-'} ${p.group ? '• Group ' + p.group : ''} ${p.venue ? '• ' + p.venue : ''}</div>
-      <div class="prob">Pick: <strong>${p.predicted_outcome}</strong> (${(p.confidence*100).toFixed(1)}%)</div>
-      <div class="prob">Win probs: ${p.home_team} ${(p.home_win_prob*100).toFixed(1)}% • Draw ${(p.draw_prob*100).toFixed(1)}% • ${p.away_team} ${(p.away_win_prob*100).toFixed(1)}%</div>
-      <div class="prob">Expected goals: ${p.expected_goals_home?.toFixed(2)} - ${p.expected_goals_away?.toFixed(2)}</div>
-      <div class="prob">Likely scorelines: ${scorelines || 'N/A'}</div>
-      <div class="prob">Simulations: ${p.simulation_runs}</div>
-    </div>`;
+  return `<div class="match"><div class="match-top"><span class="pill">${p.selected_model || 'baseline_main'}</span><span class="meta">${p.kickoff_utc || ''}</span></div><div class="teams-board"><div class="team-side"><div class="flag">${flagFor(p.home_team)}</div><div class="team-name">${p.home_team}</div></div><div class="vs-block">VS</div><div class="team-side"><div class="flag">${flagFor(p.away_team)}</div><div class="team-name">${p.away_team}</div></div></div><div class="meta">${p.stage || '-'} ${p.group ? '• Group ' + p.group : ''} ${p.venue ? '• ' + p.venue : ''}</div><div class="prob highlight">Market pick: <strong>${p.predicted_outcome}</strong> (${(p.confidence*100).toFixed(1)}%)</div>${probabilityBars(p)}<div class="prob">Expected goals: ${p.expected_goals_home?.toFixed(2)} - ${p.expected_goals_away?.toFixed(2)}</div><div class="prob">Likely scorelines: ${scorelines || 'N/A'}</div><div class="prob">Simulations run: ${p.simulation_runs}</div></div>`;
 }
-
+function renderTicker(preds) {
+  const ticker = document.getElementById('tickerTrack');
+  const edges = topEdges(preds, 6);
+  ticker.innerHTML = edges.length ? edges.map(p => `<span class="ticker-item">${flagFor(p.home_team)} ${p.home_team} vs ${flagFor(p.away_team)} ${p.away_team} • ${p.predicted_outcome} • ${(p.confidence*100).toFixed(1)}%</span>`).join('') : '<span class="ticker-item">No strong edges available today</span>';
+}
+function applyFilter() {
+  if (!DASHBOARD_DATA) return;
+  const query = (document.getElementById('matchFilter').value || '').trim().toLowerCase();
+  const preds = DASHBOARD_DATA.predictions_today || [];
+  const filtered = !query ? preds : preds.filter(p => `${p.home_team} ${p.away_team} ${p.predicted_outcome} ${p.stage} ${p.group} ${p.venue}`.toLowerCase().includes(query));
+  document.getElementById('predictionsGrid').innerHTML = filtered.length ? filtered.map(predictionCard).join('') : '<div class="card">No matches found for this filter.</div>';
+}
 function render(data) {
-  const hero = document.getElementById('heroStats');
-  const preds = data.predictions_today || [];
-  const backtest = data.backtest || {};
-  const comparison = data.model_comparison || {};
-  const models = comparison.models || [];
-
-  hero.innerHTML = [
-    statCard('Selected model', data.selected_model || 'N/A', 'Auto-selected best model'),
-    statCard('Predictions today', preds.length, 'Upcoming matches tracked'),
-    statCard('Latest accuracy', backtest.pick_accuracy != null ? (backtest.pick_accuracy*100).toFixed(1) + '%' : 'N/A', 'Backtest pick accuracy'),
-    statCard('Simulation runs', preds[0]?.simulation_runs || 0, 'Per match simulation count')
-  ].join('');
-
-  document.getElementById('predictionsGrid').innerHTML = preds.length ? preds.map(predictionCard).join('') : '<div class="card">No predictions available.</div>';
-
-  document.getElementById('modelStats').innerHTML = [
-    statCard('Backtest Brier', backtest.brier_score != null ? Number(backtest.brier_score).toFixed(4) : 'N/A', 'Lower is better'),
-    statCard('Backtest Log Loss', backtest.log_loss != null ? Number(backtest.log_loss).toFixed(4) : 'N/A', 'Lower is better'),
-    statCard('Best compared model', comparison.best_model || 'N/A', 'From latest comparison'),
-    statCard('Generated at', data.generated_at_utc || 'N/A', 'UTC timestamp')
-  ].join('');
-
-  document.getElementById('comparisonBody').innerHTML = models.map(m => `
-    <tr>
-      <td>${m.model_name}</td>
-      <td>${((m.pick_accuracy || 0) * 100).toFixed(1)}%</td>
-      <td>${m.brier_score != null ? Number(m.brier_score).toFixed(4) : 'N/A'}</td>
-      <td>${m.log_loss != null ? Number(m.log_loss).toFixed(4) : 'N/A'}</td>
-      <td>${m.ece != null ? Number(m.ece).toFixed(4) : 'N/A'}</td>
-    </tr>`).join('');
-
-  const upcomingBtn = document.getElementById('showUpcomingBtn');
-  const upcomingPanel = document.getElementById('upcomingPanel');
-  upcomingBtn.onclick = () => {
-    const next = preds[0];
-    if (!next) {
-      upcomingPanel.style.display = 'block';
-      upcomingPanel.innerHTML = '<div class="label">Upcoming Match</div><div class="value">No upcoming match available</div>';
-      return;
-    }
-    upcomingPanel.style.display = 'block';
-    upcomingPanel.innerHTML = `
-      <div class="label">Current Upcoming Match Prediction</div>
-      <div class="value" style="font-size:22px;">${next.home_team} vs ${next.away_team}</div>
-      <div class="small">Pick: ${next.predicted_outcome} (${(next.confidence*100).toFixed(1)}%)</div>
-      <div class="small">Win probs: ${next.home_team} ${(next.home_win_prob*100).toFixed(1)}% • Draw ${(next.draw_prob*100).toFixed(1)}% • ${next.away_team} ${(next.away_win_prob*100).toFixed(1)}%</div>
-      <div class="small">Expected goals: ${next.expected_goals_home?.toFixed(2)} - ${next.expected_goals_away?.toFixed(2)}</div>
-    `;
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.HapticFeedback?.impactOccurred?.('light');
-    }
-  };
+  DASHBOARD_DATA = data;
+  const hero = document.getElementById('heroStats'); const edgeWrap = document.getElementById('bestEdgeWrap'); const preds = data.predictions_today || []; const backtest = data.backtest || {}; const comparison = data.model_comparison || {}; const models = comparison.models || []; const edge = bestEdge(preds);
+  hero.innerHTML = [statCard('Selected model', data.selected_model || 'N/A', 'Auto-selected best model'), statCard('Predictions today', preds.length, 'Upcoming matches tracked'), statCard('Latest accuracy', backtest.pick_accuracy != null ? (backtest.pick_accuracy*100).toFixed(1) + '%' : 'N/A', 'Backtest pick accuracy'), statCard('Simulation runs', preds[0]?.simulation_runs || 0, 'Per match simulation count')].join('');
+  edgeWrap.innerHTML = heroEdgeCard(edge);
+  renderTicker(preds);
+  applyFilter();
+  document.getElementById('modelStats').innerHTML = [statCard('Backtest Brier', backtest.brier_score != null ? Number(backtest.brier_score).toFixed(4) : 'N/A', 'Lower is better'), statCard('Backtest Log Loss', backtest.log_loss != null ? Number(backtest.log_loss).toFixed(4) : 'N/A', 'Lower is better'), statCard('Best compared model', comparison.best_model || 'N/A', 'From latest comparison'), statCard('Generated at', data.generated_at_utc || 'N/A', 'UTC timestamp')].join('');
+  document.getElementById('comparisonBody').innerHTML = models.map(m => `<tr><td>${m.model_name}</td><td>${((m.pick_accuracy || 0) * 100).toFixed(1)}%</td><td>${m.brier_score != null ? Number(m.brier_score).toFixed(4) : 'N/A'}</td><td>${m.log_loss != null ? Number(m.log_loss).toFixed(4) : 'N/A'}</td><td>${m.ece != null ? Number(m.ece).toFixed(4) : 'N/A'}</td></tr>`).join('');
+  const upcomingBtn = document.getElementById('showUpcomingBtn'); const todayBtn = document.getElementById('todayPredsBtn'); const upcomingPanel = document.getElementById('upcomingPanel');
+  upcomingBtn.onclick = () => { const next = preds[0]; if (!next) { upcomingPanel.style.display = 'block'; upcomingPanel.innerHTML = '<div class="label">Upcoming Match</div><div class="value">No upcoming match available</div>'; return; } upcomingPanel.style.display = 'block'; upcomingPanel.innerHTML = `<div class="label">Current Upcoming Match Prediction</div><div class="value" style="font-size:22px;">${flagFor(next.home_team)} ${next.home_team} vs ${flagFor(next.away_team)} ${next.away_team}</div><div class="small">Pick: ${next.predicted_outcome} (${(next.confidence*100).toFixed(1)}%)</div>${probabilityBars(next)}<div class="small">Expected goals: ${next.expected_goals_home?.toFixed(2)} - ${next.expected_goals_away?.toFixed(2)}</div>`; if (window.Telegram?.WebApp) window.Telegram.WebApp.HapticFeedback?.impactOccurred?.('light'); };
+  if (todayBtn) { todayBtn.onclick = () => { document.getElementById('predictionsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' }); if (window.Telegram?.WebApp) window.Telegram.WebApp.HapticFeedback?.impactOccurred?.('medium'); }; }
 }
-
-async function startApp() {
-  if (window.Telegram?.WebApp) {
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
-    document.body.classList.add('tg-ready');
-  }
-  const data = await loadDashboardData();
-  render(data);
-}
-
-document.getElementById('refreshBtn').onclick = async () => render(await loadDashboardData());
-startApp().catch(err => {
-  document.getElementById('predictionsGrid').innerHTML = `<div class="card">Failed to load dashboard data: ${err}</div>`;
-});
+async function startApp() { if (window.Telegram?.WebApp) { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); } const data = await loadDashboardData(); render(data); }
+document.getElementById('refreshBtn').onclick = async () => render(await loadDashboardData()); document.getElementById('matchFilter').addEventListener('input', applyFilter); startApp().catch(err => { document.getElementById('predictionsGrid').innerHTML = `<div class="card">Failed to load dashboard data: ${err}</div>`; });
