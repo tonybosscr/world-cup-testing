@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Dict, List
 
-from model import simulate_match
+from simulation_core import simulate_match
 
 
 def _parse_dt(value: str):

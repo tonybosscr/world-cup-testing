@@ -1,6 +1,6 @@
-from typing import Dict, List
+from typing import Dict
 
-from model import simulate_match
+from simulation_core import simulate_match
 
 
 def strength_defaults():

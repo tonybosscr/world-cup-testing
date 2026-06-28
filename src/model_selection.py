@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 from typing import Dict
 
-from model import simulate_match
 from model_variants import get_model_registry
+from simulation_core import simulate_match
 from stable_selection import stable_best_model
 
 
