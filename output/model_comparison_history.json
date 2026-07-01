@@ -13906,5 +13906,371 @@
         ]
       }
     ]
+  },
+  {
+    "generated_at_utc": "2026-07-01T12:43:00.319829+00:00",
+    "best_model": "baseline_main",
+    "models": [
+      {
+        "model_name": "baseline_main",
+        "evaluated_matches": 0,
+        "pick_accuracy": 0.0,
+        "brier_score": null,
+        "log_loss": null,
+        "ece": 0.0,
+        "calibration_bins": [
+          {
+            "bin_start": 0.0,
+            "bin_end": 0.1,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.1,
+            "bin_end": 0.2,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.2,
+            "bin_end": 0.3,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.3,
+            "bin_end": 0.4,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.4,
+            "bin_end": 0.5,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.5,
+            "bin_end": 0.6,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.6,
+            "bin_end": 0.7,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.7,
+            "bin_end": 0.8,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.8,
+            "bin_end": 0.9,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.9,
+            "bin_end": 1.0,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          }
+        ]
+      },
+      {
+        "model_name": "elo_only",
+        "evaluated_matches": 0,
+        "pick_accuracy": 0.0,
+        "brier_score": null,
+        "log_loss": null,
+        "ece": 0.0,
+        "calibration_bins": [
+          {
+            "bin_start": 0.0,
+            "bin_end": 0.1,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.1,
+            "bin_end": 0.2,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.2,
+            "bin_end": 0.3,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.3,
+            "bin_end": 0.4,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.4,
+            "bin_end": 0.5,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.5,
+            "bin_end": 0.6,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.6,
+            "bin_end": 0.7,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.7,
+            "bin_end": 0.8,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.8,
+            "bin_end": 0.9,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.9,
+            "bin_end": 1.0,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          }
+        ]
+      },
+      {
+        "model_name": "form_weighted",
+        "evaluated_matches": 0,
+        "pick_accuracy": 0.0,
+        "brier_score": null,
+        "log_loss": null,
+        "ece": 0.0,
+        "calibration_bins": [
+          {
+            "bin_start": 0.0,
+            "bin_end": 0.1,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.1,
+            "bin_end": 0.2,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.2,
+            "bin_end": 0.3,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.3,
+            "bin_end": 0.4,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.4,
+            "bin_end": 0.5,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.5,
+            "bin_end": 0.6,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.6,
+            "bin_end": 0.7,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.7,
+            "bin_end": 0.8,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.8,
+            "bin_end": 0.9,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.9,
+            "bin_end": 1.0,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          }
+        ]
+      },
+      {
+        "model_name": "goal_rate_focused",
+        "evaluated_matches": 0,
+        "pick_accuracy": 0.0,
+        "brier_score": null,
+        "log_loss": null,
+        "ece": 0.0,
+        "calibration_bins": [
+          {
+            "bin_start": 0.0,
+            "bin_end": 0.1,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.1,
+            "bin_end": 0.2,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.2,
+            "bin_end": 0.3,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.3,
+            "bin_end": 0.4,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.4,
+            "bin_end": 0.5,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.5,
+            "bin_end": 0.6,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.6,
+            "bin_end": 0.7,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.7,
+            "bin_end": 0.8,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.8,
+            "bin_end": 0.9,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          },
+          {
+            "bin_start": 0.9,
+            "bin_end": 1.0,
+            "count": 0,
+            "avg_predicted": null,
+            "actual_frequency": null,
+            "gap": null
+          }
+        ]
+      }
+    ]
   }
 ]
