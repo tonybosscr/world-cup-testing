@@ -574,5 +574,13 @@
     "pick_accuracy": 0.0,
     "brier_score": null,
     "log_loss": null
+  },
+  {
+    "generated_at_utc": "2026-07-04T00:13:25.234597+00:00",
+    "provider": "worldcup26_free",
+    "evaluated_matches": 0,
+    "pick_accuracy": 0.0,
+    "brier_score": null,
+    "log_loss": null
   }
 ]
