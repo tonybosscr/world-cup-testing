@@ -1,10 +1,10 @@
 {
-  "runs": 98,
+  "runs": 99,
   "avg_pick_accuracy": 0.0,
   "avg_brier_score": null,
   "avg_log_loss": null,
   "latest": {
-    "generated_at_utc": "2026-07-05T14:08:36.923170+00:00",
+    "generated_at_utc": "2026-07-05T15:19:17.004253+00:00",
     "provider": "worldcup26_free",
     "evaluated_matches": 0,
     "pick_accuracy": 0.0,
