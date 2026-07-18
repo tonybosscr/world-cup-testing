@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-07-18T11:58:59.645121+00:00",
+  "generated_at_utc": "2026-07-18T13:39:21.699634+00:00",
   "selected_model": "baseline_main",
   "predictions_today": [],
   "summary": {
-    "runs": 322,
+    "runs": 323,
     "avg_pick_accuracy": 0.0,
     "avg_brier_score": null,
     "avg_log_loss": null,
     "latest": {
-      "generated_at_utc": "2026-07-18T11:58:59.645813+00:00",
+      "generated_at_utc": "2026-07-18T13:39:21.700369+00:00",
       "provider": "worldcup26_free",
       "evaluated_matches": 0,
       "pick_accuracy": 0.0,
@@ -22,10 +22,10 @@
     "brier_score": null,
     "log_loss": null,
     "details": [],
-    "generated_at_utc": "2026-07-18T11:58:59.645243+00:00"
+    "generated_at_utc": "2026-07-18T13:39:21.699785+00:00"
   },
   "model_comparison": {
-    "generated_at_utc": "2026-07-18T11:58:59.495454+00:00",
+    "generated_at_utc": "2026-07-18T13:39:21.545998+00:00",
     "models": [
       {
         "model_name": "baseline_main",
